@@ -1,4 +1,5 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -9,7 +10,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Loading from '../Loading/Loading';
+import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import CustomizedSelects from '../../Posts/PostItem/Input/Input'
 
 const columns = [
     { id: 'title', label: 'Title', minWidth: 100 },
@@ -29,23 +32,36 @@ const useStyles = makeStyles({
     },
 });
 
-export default function StickyHeadTable({ posts, loading }) {
+export default function StickyHeadTable({ loading }) {
 
+    
     const classes = useStyles();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [postsTwo, setPostsTwo] = useState([]);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [totalPages, setTotalPage] = useState(10);
 
-    if(loading) {
-        return <Loading />
+
+    const getPostsTwo = async () => {
+        let res = await axios.get(`http://itstrana.vh118.hosterby.com/start_up/api/startap/startap/?page=${pageNumber}&page_size=${totalPages}`);
+        setPostsTwo(res.data.results);
+        console.log(res.data.result);
     };
 
-    const handleChangePage = () => {
-        setPage(page+1);
-    };
+
+    // const handleChangePage = (event, page) => {
+    //     getPostsTwo();
+    //     setPage(page);
+    // };
 
     const handleChangeRowsPerPage = e => {
         setRowsPerPage(+e.target.value);
         setPage(0);
+    };
+
+    if(loading) {
+        return <Loading />
     };
 
     return (
@@ -66,7 +82,7 @@ export default function StickyHeadTable({ posts, loading }) {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {posts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(post => {
+                {postsTwo && postsTwo.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(post => {
                 return (
                     <TableRow 
                         hover role="checkbox" 
@@ -80,7 +96,7 @@ export default function StickyHeadTable({ posts, loading }) {
                                     align={column.align} 
                                 >
                                     <Link
-                                        to={`/post/${post.id}/comments`}
+                                        to={`/post/${post.id-285}/item`}
                                         style={{
                                             'textDecoration':'none', 
                                             'color':'#000'
@@ -97,15 +113,28 @@ export default function StickyHeadTable({ posts, loading }) {
             </TableBody>
             </Table>
         </TableContainer>
-        <TablePagination
-            // rowsPerPageOptions={[5, 10, 25, 50]}
+        {/* <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 50]}
             component="div"
-            count={posts.length}
+            count={postsTwo.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        /> */}
+            <select>
+                <option value='5'>5</option>
+                <option value='10'>10</option>
+                <option value='15'>15</option>
+                <option value='20'>20</option>
+            </select>
+            <Button
+                color="primary" 
+                variant="outlined"
+                onClick={handleChangeRowsPerPage}   
+            >
+                Push
+            </Button>
         </Paper>
     );
 };

@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function PostItemTwo({ posts, loading }) {
+export default function PostItemTwo({ posts, loading, postsTwo }) {
 
     const classes = useStyles();
 
@@ -55,7 +55,8 @@ export default function PostItemTwo({ posts, loading }) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    { loading ? null
+                    { 
+                        loading ? null
                         : posts.length > 0  && 
                         <StyledTableRow key={posts[page].id}>
                             <StyledTableCell>{posts[page].title}</StyledTableCell>

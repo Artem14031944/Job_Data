@@ -1,0 +1,80 @@
+{
+    "header":  [
+        {
+            "name": "About us",
+            "type": "link"
+        },
+        {
+            "name": "Help",
+            "type": "link"
+        },
+        {
+            "name": "Menu",
+            "type": "link"
+        },
+        {
+            "name": "Sing in",
+            "type": "link"
+        }
+    ],
+
+    "headerStyles" : {
+        "color": "#f24",
+        "fontSize" : "18px"
+    },
+
+
+    "results":[{
+        "name": "1",
+        "type": "button",
+        "style": {
+            "color": "#f24",
+            "fontSize" : "18px"
+        },
+        "fields": [
+            {
+                "name": "About us",
+                "type": "link"
+            },
+            {
+                "name": "Help",
+                "type": "link"
+            },
+            {
+                "name": "Menu",
+                "type": "link"
+            },
+            {
+                "name": "Sing in",
+                "type": "link"
+            }
+        ]
+    },
+    {
+        "name": "1",
+        "type": "menu",
+        "style": {
+            "color": "#f24",
+            "fontSize" : "18px"
+        },
+        "fields": [
+            {
+                "name": "About us",
+                "type": "link"
+            },
+            {
+                "name": "Help",
+                "type": "link"
+            },
+            {
+                "name": "Menu",
+                "type": "link"
+            },
+            {
+                "name": "Sing in",
+                "type": "link"
+            }
+        ]
+    }
+]
+}
